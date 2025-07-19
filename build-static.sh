@@ -22,6 +22,8 @@ os="$(uname -s | tr '[:upper:]' '[:lower:]')"
 # - XCADDY_ARGS: Additional arguments to pass to xcaddy
 # - RELEASE: [maintainer only] Create a GitHub release if set to 1 (default: none)
 
+PHP_VERSION="8.2"
+
 # - SPC_REL_TYPE: Release type to download (accept "source" and "binary", default: "source")
 # - SPC_OPT_BUILD_ARGS: Additional arguments to pass to spc build
 # - SPC_OPT_DOWNLOAD_ARGS: Additional arguments to pass to spc download
