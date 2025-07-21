@@ -68,7 +68,7 @@ jobs:
         include:
           - platform: linux/amd64
           - platform: linux/amd64
-            debug: true
+            debug: false
           - platform: linux/amd64
             mimalloc: true
     name: Build ${{ matrix.platform }} static musl binary${{ matrix.debug && ' (debug)' || '' }}${{ matrix.mimalloc && ' (mimalloc)' || '' }}
@@ -109,7 +109,7 @@ jobs:
             *.cache-from=type=gha,scope=${{ needs.prepare.outputs.ref || github.ref }}-static-builder-musl${{ matrix.debug && '-debug' || '' }}${{ matrix.mimalloc && '-mimalloc' || '' }}
             *.cache-from=type=gha,scope=refs/heads/main-static-builder-musl${{ matrix.debug && '-debug' || '' }}${{ matrix.mimalloc && '-mimalloc' || '' }}
             *.cache-to=type=gha,scope=${{ needs.prepare.outputs.ref || github.ref }}-static-builder-musl${{ matrix.debug && '-debug' || '' }}${{ matrix.mimalloc && '-mimalloc' || '' }},ignore-error=true
-            ${{ (fromJson(needs.prepare.outputs.push) && !matrix.debug && !matrix.mimalloc) && format('*.output=type=image,name={0},push-by-digest=true,name-canonical=true,push=true', env.IMAGE_NAME) || '' }}
+            ${{ (fromJson(needs.prepare.outputs.push) && !matrix.debug && !matrix.mimalloc) && format('*.output=type=image,name={0},push-by-digest=true,name-canonical=true,push=false', env.IMAGE_NAME) || '' }}
         env:
           SHA: ${{ github.sha }}
           VERSION: ${{ (github.ref_type == 'tag' && github.ref_name) || needs.prepare.outputs.ref || 'dev' }}
@@ -206,7 +206,7 @@ jobs:
             *.cache-from=type=gha,scope=${{ needs.prepare.outputs.ref || github.ref }}-static-builder-gnu
             *.cache-from=type=gha,scope=refs/heads/main-static-builder-gnu
             *.cache-to=type=gha,scope=${{ needs.prepare.outputs.ref || github.ref }}-static-builder-gnu,ignore-error=true
-            ${{ fromJson(needs.prepare.outputs.push) && format('*.output=type=image,name={0},push-by-digest=true,name-canonical=true,push=true', env.IMAGE_NAME) || '' }}
+            ${{ fromJson(needs.prepare.outputs.push) && format('*.output=type=image,name={0},push-by-digest=true,name-canonical=true,push=false', env.IMAGE_NAME) || '' }}
         env:
           SHA: ${{ github.sha }}
           VERSION: ${{ (github.ref_type == 'tag' && github.ref_name) || needs.prepare.outputs.ref || 'dev' }}
